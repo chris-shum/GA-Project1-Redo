@@ -10,12 +10,14 @@ import android.widget.EditText;
  * Created by ShowMe on 7/20/16.
  */
 public class DialogBoxEdit {
+    Singleton singleton;
 
     // TODO: 7/20/16 edit info to make things changeable
 
 
     public void EditDialogBox(final Boolean main, Context context, final int position, final MainObject mainObject) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        singleton = Singleton.getInstance();
         if (main) {
             dialogBuilder.setView(R.layout.dialog_box_main);
             dialogBuilder.setTitle("Edit List Title");
@@ -26,7 +28,6 @@ public class DialogBoxEdit {
         dialogBuilder.setPositiveButton("Change", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Singleton singleton = Singleton.getInstance();
 
                 Dialog dialog = (Dialog) dialogInterface;
                 if (main) {
@@ -45,9 +46,7 @@ public class DialogBoxEdit {
                     String mEditTextItemString = mEditTextItem.getText().toString();
                     String mEditTextDescriptionString = mEditTextDesciption.getText().toString();
 
-                    if (mEditTextDescriptionString.isEmpty()) {
-                        mEditTextDesciption.setError("Can't leave empty");
-                    } else if (mEditTextItemString.isEmpty()) {
+                    if (mEditTextItemString.isEmpty()) {
                         mEditTextItem.setError("Can't leave empty");
                     } else {
                         mainObject.getmDetailsObjectArrayList().get(position).setmDetail(mEditTextItemString);
@@ -68,10 +67,13 @@ public class DialogBoxEdit {
         dialogBuilder.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                if(main){
+                    singleton.getMainObjectArrayList().remove(position);
+                }else{
+                    mainObject.getmDetailsObjectArrayList().remove(position);
+                }
             }
         });
-
-        Singleton singleton = Singleton.getInstance();
 
         final AlertDialog builder = dialogBuilder.create();
         builder.show();

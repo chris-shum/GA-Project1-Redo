@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -88,10 +87,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Override
         public boolean onLongClick(View view) {
-
-            int a = getAdapterPosition();
-
-            Toast.makeText(view.getContext(), "Position"+a, Toast.LENGTH_SHORT).show();
             Singleton singleton = Singleton.getInstance();
             DialogBoxEdit dialogBoxEdit = new DialogBoxEdit();
 //            //fix position
