@@ -31,9 +31,9 @@ The details screen displays the items in your list.
   Hit back button
   
 ##Todo:
-  - Figure out best method to save data.  Currently reading up on [realm.io](Realm.io).
+  - Figure out best method to save data.  Currently reading up on <a href = "https://realm.io/">Realm.io</a>.
   
-  - Would like to implement [https://medium.com/@ipaulpro/drag-and-swipe-with-recyclerview-b9456d2b1aaf#.6ovz9zuhb](Drag and Swipe with RecyclerView).
+  - Would like to implement <a href = "https://medium.com/@ipaulpro/drag-and-swipe-with-recyclerview-b9456d2b1aaf">Drag and Swipe with RecyclerView</a>.
 
   - Improve design.
   
