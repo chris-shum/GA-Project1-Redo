@@ -1,7 +1,7 @@
 # ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Project 1 Redo
 ##CheckList
 ###Overview:
-I decided to recreate my first project from General Assembly just to see how far I've progressed compared to my <a href "https://github.com/chris-shum/GA-Project1">first attempt</a>.  This app now makes use of RecyclerViews and Dialogs.  
+I decided to recreate my first project from General Assembly just to see how far I've progressed compared to my [first attempt](https://github.com/chris-shum/GA-Project1).  This app now makes use of RecyclerViews and Dialogs.  
 
 ##How to use:
 
@@ -31,9 +31,9 @@ The details screen displays the items in your list.
   Hit back button
   
 ##Todo:
-  - Figure out best method to save data.  Currently reading up on <a href = "realm.io">Realm.io</a>.
+  - Figure out best method to save data.  Currently reading up on [realm.io](Realm.io).
   
-  - Would like to implement <a href = "https://medium.com/@ipaulpro/drag-and-swipe-with-recyclerview-b9456d2b1aaf#.6ovz9zuhb">Drag and Swipe with RecyclerView</a>.
+  - Would like to implement [https://medium.com/@ipaulpro/drag-and-swipe-with-recyclerview-b9456d2b1aaf#.6ovz9zuhb](Drag and Swipe with RecyclerView).
 
   - Improve design.
   
