@@ -18,6 +18,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     ArrayList<MainObject> mainObjectArrayList;
     MainObject mainObject;
     Boolean main;
+    RecyclerViewAdapter recyclerViewAdapter = this;
 
     public RecyclerViewAdapter(ArrayList<MainObject> mainObjectArrayList, Boolean main) {
         this.mainObjectArrayList = mainObjectArrayList;
@@ -89,9 +90,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public boolean onLongClick(View view) {
             Singleton singleton = Singleton.getInstance();
             DialogBoxEdit dialogBoxEdit = new DialogBoxEdit();
-//            //fix position
-            dialogBoxEdit.EditDialogBox(main, view.getContext(), getAdapterPosition(), singleton.getMainObjectArrayList().get(position));
-
+            dialogBoxEdit.EditDialogBox(main, view.getContext(), getAdapterPosition(), singleton.getMainObjectArrayList().get(position), recyclerViewAdapter);
             return true;
         }
     }

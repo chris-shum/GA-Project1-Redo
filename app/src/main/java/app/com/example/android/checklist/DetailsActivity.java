@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 public class DetailsActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
@@ -29,7 +28,6 @@ public class DetailsActivity extends AppCompatActivity {
 
         mSingleton = Singleton.getInstance();
         intent = getIntent();
-        Toast.makeText(DetailsActivity.this, "Position "+intent.getIntExtra("Position",0), Toast.LENGTH_SHORT).show();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.mainRecyclerView);
         mLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, main);
@@ -37,13 +35,10 @@ public class DetailsActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
 
                 DialogBox dialogBox = new DialogBox();
                 dialogBox.CreateDialogBox(main, DetailsActivity.this, intent.getIntExtra("Position",0), mRecyclerViewAdapter);

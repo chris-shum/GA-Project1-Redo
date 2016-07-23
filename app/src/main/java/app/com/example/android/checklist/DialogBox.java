@@ -45,14 +45,13 @@ public class DialogBox {
                     String mEditTextItemString = mEditTextItem.getText().toString();
                     String mEditTextDescriptionString = mEditTextDesciption.getText().toString();
 
-                    if (mEditTextDescriptionString.isEmpty()) {
-                        Toast.makeText(((Dialog) dialogInterface).getContext(), "Womp", Toast.LENGTH_SHORT).show();
-                    } else if (mEditTextItemString.isEmpty()) {
+                  if (mEditTextItemString.isEmpty()) {
                         Toast.makeText(((Dialog) dialogInterface).getContext(), "Womp", Toast.LENGTH_SHORT).show();
                     } else {
                         singleton.getMainObjectArrayList().get(position).getmDetailsObjectArrayList().add(new DetailsObject(mEditTextItemString, mEditTextDescriptionString));
                     }
                 }
+                recyclerViewAdapter.notifyDataSetChanged();
             }
         });
 

@@ -12,10 +12,7 @@ import android.widget.EditText;
 public class DialogBoxEdit {
     Singleton singleton;
 
-    // TODO: 7/20/16 edit info to make things changeable
-
-
-    public void EditDialogBox(final Boolean main, Context context, final int position, final MainObject mainObject) {
+    public void EditDialogBox(final Boolean main, Context context, final int position, final MainObject mainObject, final RecyclerViewAdapter recyclerViewAdapter) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         singleton = Singleton.getInstance();
         if (main) {
@@ -38,6 +35,7 @@ public class DialogBoxEdit {
                         mEditTextTitle.setError("Can't leave empty");
                     } else {
                         singleton.getMainObjectArrayList().get(position).setmTitle(mEditTextTitleString);
+                        recyclerViewAdapter.notifyDataSetChanged();
                     }
 
                 } else {
@@ -51,6 +49,7 @@ public class DialogBoxEdit {
                     } else {
                         mainObject.getmDetailsObjectArrayList().get(position).setmDetail(mEditTextItemString);
                         mainObject.getmDetailsObjectArrayList().get(position).setmDescription(mEditTextDescriptionString);
+                        recyclerViewAdapter.notifyDataSetChanged();
                     }
 
                 }
@@ -67,11 +66,16 @@ public class DialogBoxEdit {
         dialogBuilder.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(main){
+                if (main) {
                     singleton.getMainObjectArrayList().remove(position);
-                }else{
+                    recyclerViewAdapter.notifyItemRemoved(position);
+                    recyclerViewAdapter.notifyItemRangeChanged(position, singleton.getMainObjectArrayList().size());
+
+                } else {
                     mainObject.getmDetailsObjectArrayList().remove(position);
                 }
+                recyclerViewAdapter.notifyItemRemoved(position);
+                recyclerViewAdapter.notifyItemRangeChanged(position, mainObject.getmDetailsObjectArrayList().size());
             }
         });
 
@@ -87,5 +91,7 @@ public class DialogBoxEdit {
             editTextItem.setText(mainObject.getmDetailsObjectArrayList().get(position).getmDetail());
             editTextDescription.setText(mainObject.getmDetailsObjectArrayList().get(position).getmDescription());
         }
+
+
     }
 }
