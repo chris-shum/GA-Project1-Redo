@@ -1,13 +1,18 @@
 package app.com.example.android.checklist;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+
+import com.google.gson.Gson;
 
 public class DetailsActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
@@ -35,6 +40,11 @@ public class DetailsActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
+        ItemTouchHelper.Callback callback =
+        new ItemTouchHelperCallback(mRecyclerViewAdapter, mRecyclerViewAdapter, main, this, mSingleton.getMainObjectArrayList().get(intent.getIntExtra("Position", 0)));
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mRecyclerView);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,11 +54,22 @@ public class DetailsActivity extends AppCompatActivity {
                 dialogBox.CreateDialogBox(main, DetailsActivity.this, intent.getIntExtra("Position",0), mRecyclerViewAdapter);
             }
         });
+        mRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onResume() {
-        mRecyclerViewAdapter.notifyDataSetChanged();
         super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences sharedPref = getSharedPreferences("app.com.example.android.checklist", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(mSingleton.getMainObjectArrayList());
+        editor.putString("Key", json);
+        editor.commit();
     }
 }

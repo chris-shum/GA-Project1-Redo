@@ -9,11 +9,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by ShowMe on 7/18/16.
  */
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements ItemTouchHelperAdapter {
     int position;
     ArrayList<MainObject> mainObjectArrayList;
     MainObject mainObject;
@@ -39,11 +40,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder (ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         if (main) {
             holder.textView.setText(mainObjectArrayList.get(position).getmTitle());
         } else {
-            String combo = mainObject.getmDetailsObjectArrayList().get(position).getmDetail()+"\n     -"+mainObject.getmDetailsObjectArrayList().get(position).getmDescription();
+            String combo = mainObject.getmDetailsObjectArrayList().get(position).getmDetail() + "\n     -" + mainObject.getmDetailsObjectArrayList().get(position).getmDescription();
             holder.textView.setText(combo);
         }
 
@@ -66,19 +67,52 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        if (main) {
+            if (fromPosition < toPosition) {
+                for (int i = fromPosition; i < toPosition; i++) {
+                    Collections.swap(mainObjectArrayList, i, i + 1);
+                }
+            } else {
+                for (int i = fromPosition; i > toPosition; i--) {
+                    Collections.swap(mainObjectArrayList, i, i - 1);
+                }
+            }
+        } else {
+            if (fromPosition < toPosition) {
+                for (int i = fromPosition; i < toPosition; i++) {
+                    Collections.swap(mainObject.getmDetailsObjectArrayList(), i, i + 1);
+                }
+            } else {
+                for (int i = fromPosition; i > toPosition; i--) {
+                    Collections.swap(mainObject.getmDetailsObjectArrayList(), i, i - 1);
+                }
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        mainObjectArrayList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView textView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             textView = (TextView) itemView.findViewById(R.id.title);
-            itemView.setOnLongClickListener(this);
+//            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if(main){
+            if (main) {
                 Context context = view.getContext();
                 Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra("Position", getAdapterPosition());
@@ -86,12 +120,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         }
 
-        @Override
-        public boolean onLongClick(View view) {
-            Singleton singleton = Singleton.getInstance();
-            DialogBoxEdit dialogBoxEdit = new DialogBoxEdit();
-            dialogBoxEdit.EditDialogBox(main, view.getContext(), getAdapterPosition(), singleton.getMainObjectArrayList().get(position), recyclerViewAdapter);
-            return true;
-        }
+//        @Override
+//        public boolean onLongClick(View view) {
+//            Singleton singleton = Singleton.getInstance();
+//            DialogBoxEdit dialogBoxEdit = new DialogBoxEdit();
+//            dialogBoxEdit.EditDialogBox(main, view.getContext(), getAdapterPosition(), singleton.getMainObjectArrayList().get(position), recyclerViewAdapter);
+//            return true;
+//        }
+
     }
 }

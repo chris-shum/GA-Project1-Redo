@@ -73,9 +73,9 @@ public class DialogBoxEdit {
 
                 } else {
                     mainObject.getmDetailsObjectArrayList().remove(position);
+                    recyclerViewAdapter.notifyItemRemoved(position);
+                    recyclerViewAdapter.notifyItemRangeChanged(position, mainObject.getmDetailsObjectArrayList().size());
                 }
-                recyclerViewAdapter.notifyItemRemoved(position);
-                recyclerViewAdapter.notifyItemRangeChanged(position, mainObject.getmDetailsObjectArrayList().size());
             }
         });
 
