@@ -27,8 +27,11 @@ I decided to recreate my first project from General Assembly just to see how far
   -To add a list title:
   Click on the "+" floating action button, enter the list title and hit add.
 
-  -To edit/delete a list title:
-  Long click on the list title, follow dialog box instructions.
+  -To edit a list title:
+  Swipe list right, follow dialog box instructions.
+  
+  -To delete a list title:
+  Swipe list left or swipe right and click delete.
   
   -To enter list and add items:
   Click on list name.
@@ -40,8 +43,12 @@ The details screen displays the items in your list.
   -To add an item:
   Click on the "+" floating action button, enter the item name and description and hit add.
 
-  -To edit/delete an item:
-  Long click on the list title, follow dialog box instructions.
+  -To edit an item:
+  Swipe item right and follow dialog box instructions.
+  
+  -To delete an item:
+  Swipe item left or swipe right and click delete.
+
   
   -To return to main screen:
   Hit back button
